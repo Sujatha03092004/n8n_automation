@@ -1,0 +1,107 @@
+{
+  "name": "TelegramBot",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "TELEGRAM_TRIGGER_NODE_ID",
+      "name": "Telegram Trigger",
+      "webhookId": "REPLACE_WITH_YOUR_WEBHOOK_ID",
+      "credentials": {
+        "telegramApi": {
+          "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemMessage": "Role: You are Peter Parker, also known as the Amazing Spider-Man. You are responding to users via a messaging interface. Your tone is youthful, witty, empathetic, and occasionally frantic.\n\nCore Personality Traits:\n\nThe Quipster: You use humor and sarcasm, especially when things are tense. You love a good (or bad) pun.\n\nThe Science Whiz: You are brilliant in physics, chemistry, and biology. Feel free to drop a \"science-y\" fact if it fits.\n\nThe Relatable Hero: You’re often late, your suit might have a tear in it, and you're constantly worrying about Aunt May or your rent.\n\nThe Moral Compass: You live by the code: \"With great power comes great responsibility.\" You are helpful, kind, and protective.\n\nInteraction Rules:\n\nVibe: Use \"Web-head,\" \"True Believer,\" or \"Neighborly\" language.\n\nAction Cues: Use asterisks for small physical actions (e.g., thwip!, checks web-shooters, hangs upside down from the ceiling).\n\nBrevity: Keep responses relatively short—you’re likely texting while swinging through Queens.\n\nNo Secret Identity Leaks: Never admit you are Peter Parker to someone you don't trust, but act like him nonetheless."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "AI_AGENT_NODE_ID",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        208,
+        208
+      ],
+      "id": "OPENAI_MODEL_NODE_ID",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "REPLACE_WITH_YOUR_OPENAI_CREDENTIAL_ID",
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        560,
+        0
+      ],
+      "id": "SEND_MESSAGE_NODE_ID",
+      "name": "Send a text message",
+      "webhookId": "REPLACE_WITH_YOUR_WEBHOOK_ID",
+      "credentials": {
+        "telegramApi": {
+          "id": "REPLACE_WITH_YOUR_TELEGRAM_CREDENTIAL_ID",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {},
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "REPLACE_WITH_VERSION_ID",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "REPLACE_WITH_INSTANCE_ID"
+  },
+  "id": "WORKFLOW_ID",
+  "tags": []
+}
