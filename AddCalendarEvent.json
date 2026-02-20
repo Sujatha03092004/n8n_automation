@@ -1,0 +1,43 @@
+{
+  "name": "AddCalendarEvent",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "TELEGRAM_TRIGGER_NODE_ID",
+      "name": "Telegram Trigger",
+      "webhookId": "REPLACE_WITH_WEBHOOK_ID",
+      "credentials": {
+        "telegramApi": {
+          "id": "REPLACE_WITH_TELEGRAM_CREDENTIAL_ID",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        512,
+        0
+      ],
+      "id": "CREATE_EVENT_NODE_ID",
+      "name": "Create an event",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "REPLACE_WITH_GOOGLE_CALENDAR_CREDENTIAL_ID",
+          "name": "Google Calendar account"
+        }
+      }
+    }
+  ],
+  "meta": {
+    "instanceId": "REPLACE_WITH_INSTANCE_ID"
+  }
+}
